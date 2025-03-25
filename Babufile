@@ -1,6 +1,6 @@
 pipeline {
   agent any
-    tools{
+    tools {
       maven 'M2_HOME'
           }
    stages {
@@ -19,7 +19,7 @@ pipeline {
 
     stage('Publish the HTML Reports') {
       steps {
-          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/Insure-Project/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '${env.WORKSPACE}/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
                         }
             }
     stage('Create a Docker image from the Package Insure-Me.jar file') {
@@ -30,7 +30,7 @@ pipeline {
     stage('Login to Dockerhub') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerlogin', passwordVariable: 'dockerpass', usernameVariable: 'dockeruser')]) {
-        sh 'docker login -u ${dockeruser} -p ${dockerpass}'
+        sh "docker login -u ${dockeruser} -p ${dockerpass}"
                                                                     }
                                 }
             }
@@ -41,7 +41,7 @@ pipeline {
             }
     stage('Ansbile config and Deployment') {
       steps {
-        ansiblePlaybook credentialsId: 'ansible-ssh', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible.yml', vaultTmpPath: ''
+        ansiblePlaybook credentialsId: 'ansible-ssh', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'path/to/ansible.yml', vaultTmpPath: ''
                                }
             }
 
