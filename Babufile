@@ -7,7 +7,7 @@ pipeline {
     stage('Git checkout') {
       steps {
          echo 'This is for cloning the gitrepo'
-         git branch: 'main', url: 'https://github.com/cbabu85/InsureMe-20Mar.git'
+         git branch: 'main', url: 'https://github.com/Deep0428/InsureMe-20Mar.git'
                           }
             }
     stage('Create a Package') {
