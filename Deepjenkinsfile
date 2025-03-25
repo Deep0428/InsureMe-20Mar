@@ -18,7 +18,7 @@ pipeline {
           }
     stage('Test Result') {
       steps {
-           echo 'This is for genrating Test Result'
+           echo 'This is for genrating Test result'
            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: '/var/lib/jenkins/workspace/InsureMe/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
             }
           }
